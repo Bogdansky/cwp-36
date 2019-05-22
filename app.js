@@ -46,7 +46,7 @@ app.post('/toggle-all', async (req, res) => {
 
 app.post('/toggle-item', async (req, res) => {
 	const { id } = req.body;
-	const item = await db.Task.findByPk(+id);
+	const item = await db.Task.findById(+id);
 	if (item)
 		res.json(await item.update({ completed: !item.completed }));
 	else
@@ -64,5 +64,5 @@ app.post('/clear', async (req, res) => {
 	await db.Task.create({ text: 'Eat', id: 1234, completed: false });
 	await db.Task.create({ text: 'Code', id: 235324, completed: false });
 
-	app.listen(3000, () => console.log('Server running'));
+	app.listen(config.app.port, () => console.log('Server running'));
 })();
